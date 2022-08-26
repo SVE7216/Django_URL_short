@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center mt-3">
+  {% for message in messages %}
+    <div class="col-5 text-center">
+      {% if 'error' in message.tags %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+<div class="row justify-content-center mt-3">
+  <div class="col-3">
+    <h3 class="fw-normal">Login</h3>
+    <hr>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Username:</label>
+        <input type="text" class="form-control"
+               value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+               name="username" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password:</label>
+        <input type="password" class="form-control" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">Login</button>
+    </form>
+    <p class="text-center">If you don't have an account, <a href="{% url 'register' %}">register</a>.</p>
+  </div>
+</div>
+{% endblock content %}

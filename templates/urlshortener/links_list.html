@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Links list
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center mt-3">
+  <div class="col-5 text-end">
+    <a href="{% url 'logout' %}">Logout</a>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-5 text-start">
+    <h3 class="fw-normal">Your links list</h3>
+    <hr>
+    {% if links %}
+      {% for link in links %}
+          <a href="{{ link.origin_url }}" target="_blank">{{ host_url }}/{{ link.short_id }} </a>
+          <p class="fw-lighter mb-0">{{ link.origin_url }}</p>
+          <p class="fs-6 text-muted fw-lighter"> created {{ link.pub_date|timesince }} ago</p>
+      {% endfor %}
+    {% else %}
+      <p class="fs-5 text fw-light">You don't have any short links yet.</p>
+    {% endif %}
+    <hr>
+    <p class="text-center">Maybe you want to create another new <a href="{% url 'shortener' %}">short link</a>.</p>
+  </div>
+</div>
+{% endblock content %}
